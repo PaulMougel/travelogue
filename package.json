@@ -27,11 +27,11 @@
     "hoek": "2.x.x"
   },
   "peerDependencies": {
-    "hapi": "5.x.x",
+    "hapi": ">=6.x.x",
     "yar": "2.x.x"
   },
   "devDependencies": {
-    "hapi": "5.x.x",
+    "hapi": "6.x.x",
     "joi": "4.4.x",
     "lab": "3.x.x",
     "complexity-report": "1.x.x",
