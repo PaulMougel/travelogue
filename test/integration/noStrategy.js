@@ -32,23 +32,24 @@ describe('Travelogue', function () {
 
     var plugins = [
         {
-            plugin: require('yar'),
+            register: require('yar'),
             options: {
                 cookieOptions: {
                     password: 'worldofwalmart'
                 }
             }
         }, {
-            plugin: require('../..'),
+            register: require('../..'),
             options: config
         }
     ];
 
-    var server = new Hapi.Server(0);
+    var server = new Hapi.Server();
+    server.connection();
 
     before(function (done) {
 
-        server.pack.register(plugins, function (err) {
+        server.register(plugins, function (err) {
 
             expect(err).to.not.exist;
 

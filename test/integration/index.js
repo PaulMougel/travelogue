@@ -20,22 +20,21 @@ var describe = Lab.experiment;
 var it = Lab.test;
 
 function initServer(server, config) {
-
     var plugins = [
         {
-            plugin: require('yar'),
+            register: require('yar'),
             options: {
                 cookieOptions: {
                     password: 'secret'
                 }
             }
         }, {
-            plugin: require('../..'),
+            register: require('../..'),
             options: config
         }
     ];
 
-    server.pack.register(plugins, function (err) {
+    server.register(plugins, function (err) {
 
         expect(err).to.not.exist;
 
@@ -88,7 +87,8 @@ function initServer(server, config) {
 
 describe('Travelogue non-API-mode', function () {
 
-    var server = new Hapi.Server(0);
+    var server = new Hapi.Server();
+    server.connection();
 
     before(function (done) {
 
@@ -776,7 +776,8 @@ describe('Travelogue non-API-mode', function () {
 
 describe('Travelogue API-Mode', function () {
 
-    var server = new Hapi.Server(0);
+    var server = new Hapi.Server();
+    server.connection();
 
     before(function (done) {
 
@@ -844,7 +845,7 @@ describe('Travelogue API-Mode', function () {
 
             var locationHeader = res.headers.location;
             expect(locationHeader).to.exist;
-            expect(locationHeader).to.match(/http:\/\/0\.0\.0\.0\:[0-9]{4,5}\//);
+            expect(locationHeader).to.equal('/');
             expect(res.statusCode).to.equal(204);
             done();
         });

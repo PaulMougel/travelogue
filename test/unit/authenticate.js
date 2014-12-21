@@ -21,8 +21,6 @@ var it = Lab.test;
 
 describe('#authenticate', function () {
 
-    Travelogue.internals.setHapi(require('hapi'));
-
     it('should accept function in place of options', function (done) {
 
         var authenticate = Travelogue.internals.authenticate(Travelogue.internals.defaults)(require('passport'), 'local', function (err) { });

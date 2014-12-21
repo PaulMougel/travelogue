@@ -17,21 +17,24 @@ var after = Lab.after;
 var describe = Lab.experiment;
 var it = Lab.test;
 
+var _continue = function (f) {
+    return {
+        continue: f
+    };
+}
 
 describe('#initialize', function () {
-
-    Travelogue.internals.setHapi(require('hapi'));
 
     var initialize = Travelogue.internals.initialize(require('passport'));
 
     it('should generate new session if request.session undefined', function (done) {
 
         var request = {};
-        initialize(request, function (err) {
+        initialize(request, _continue(function (err) {
 
             expect(err).to.not.exist;
             done();
-        });
+        }));
     });
 
     describe("request functions", function () {
@@ -41,7 +44,7 @@ describe('#initialize', function () {
             it('should throw if request has no _passport element', function (done) {
 
                 var request = {};
-                initialize(request, function (err) {
+                initialize(request, _continue(function (err) {
 
                     expect(err).to.not.exist;
                     expect(request.session._login).to.exist;
@@ -53,13 +56,13 @@ describe('#initialize', function () {
                     });
                     expect(test).to.throw();
                     done();
-                });
+                }));
             });
 
             it('should accept function in place of options', function (done) {
 
                 var request = {};
-                initialize(request, function (err) {
+                initialize(request, _continue(function (err) {
 
                     expect(err).to.not.exist;
                     expect(request.session._login).to.exist;
@@ -68,7 +71,7 @@ describe('#initialize', function () {
                         expect(err).to.not.exist;
                         done();
                     });
-                });
+                }));
             });
         });
 
@@ -77,7 +80,7 @@ describe('#initialize', function () {
             it('should throw if request has no _passport element', function (done) {
 
                 var request = {};
-                initialize(request, function (err) {
+                initialize(request, _continue(function (err) {
 
                     expect(err).to.not.exist;
                     expect(request.session._logout).to.exist;
@@ -89,19 +92,19 @@ describe('#initialize', function () {
                     });
                     expect(test).to.throw();
                     done();
-                });
+                }));
             });
 
             it('should accept function in place of options', function (done) {
 
                 var request = {};
-                initialize(request, function (err) {
+                initialize(request, _continue(function (err) {
 
                     expect(err).to.not.exist;
                     expect(request.session._logout).to.exist;
                     request.session._logout();
                     done();
-                });
+                }));
             });
         });
     });
